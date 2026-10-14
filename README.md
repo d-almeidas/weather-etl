@@ -1,7 +1,6 @@
-<<<<<<< Updated upstream
 <div align="center">
 
-![Open-Meteo Free Weather API](assets/banner.png)
+![Open-Meteo Free Weather API](banner.png)
 
 # 🌦️ weather-etl
 
@@ -28,10 +27,3 @@ It was created to practice consuming APIs, error handling (retry/backoff), and p
 > ⚠️ This project is still under development!
 
 ---
-=======
-# weather-etl
-
-Pipeline ETL que coleta o clima atual de várias cidades (Open-Meteo)
-e salva no PostgreSQL.
-
->>>>>>> Stashed changes
