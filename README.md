@@ -2,7 +2,7 @@
 
 ![Open-Meteo Free Weather API](banner.png)
 
-# 🌦️ weather-etl
+# 🌦️ Weather
 
 **ETL mini project: collects weather data from the Open-Meteo API and loads it into a PostgreSQL database.**
 
