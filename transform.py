@@ -13,6 +13,6 @@ def transformar(dados):
         "cidade": itens["cidade"],
         "temperatura": round(itens["temperatura"], 1),
         "vento": round(itens["vento"], 1),
-        "coletado_em": agora
+        "dthora_coleta": agora
         })
     return resultado
