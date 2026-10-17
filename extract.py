@@ -1,12 +1,14 @@
 import time
 import requests
 
+
 url = "https://api.open-meteo.com/v1/forecast"
 
 CIDADES = {
     "Barreiras": (-12.15, -44.99),
     "Salvador": (-12.97, -38.51),
     "Fortaleza": (-3.73, -38.52),
+    "Juazeiro do norte": (-7.23, -39.32)
 }
 
 def get_with_retry(url, tentativas=3, espera=2, **kwargs):
@@ -28,7 +30,6 @@ def get_with_retry(url, tentativas=3, espera=2, **kwargs):
         if tentativa < tentativas:
             print('Testando...')
             time.sleep(espera)
-            tentativa += 1
 
     raise Exception("A API não respondeu depois de várias tentativas.")
 
@@ -46,13 +47,10 @@ def buscar_clima(cidade, latitude, longitude):
 
 def extrair_todas():
     lista_infos = []
-    for nome_Cidade, (lat, lon) in CIDADES.items():
-        cidade_lat_lon = buscar_clima(nome_Cidade,lat,lon)
-        lista_infos.append(cidade_lat_lon)
+    for nome_cidade, (lat, lon) in CIDADES.items():
+        cidade_clima = buscar_clima(nome_cidade,lat,lon)
+        lista_infos.append(cidade_clima)
         
     return lista_infos
     
 
-if __name__ == "__main__":
-    # print(buscar_clima("Barreiras", -12.15, -44.99))
-    print(extrair_todas())
