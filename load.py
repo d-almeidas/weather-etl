@@ -14,12 +14,17 @@ def conectar():
     return conn
 
 def carregar_dados(dados):
+    inseridas = 0
     with conectar() as conn:
         with conn.cursor() as cur:
             for itens in dados:
                 cur.execute(
-                    "INSERT INTO clima (cidade, temperatura, vento, dthora_coleta) VALUES (%s, %s, %s, %s)",
-                    (itens["cidade"], itens["temperatura"], itens["vento"], itens["dthora_coleta"])
+                    """INSERT INTO clima (cidade, temperatura, vento, dthora_coleta, observado_em) 
+                    VALUES (%s, %s, %s, %s, %s)
+                    ON CONFLICT (cidade, observado_em) DO NOTHING
+                    """,
+                    (itens["cidade"], itens["temperatura"], itens["vento"], itens["dthora_coleta"], itens["observado_em"])
                 )
-        return len(dados)
+                inseridas += cur.rowcount
+        return inseridas
     

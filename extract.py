@@ -1,7 +1,6 @@
 import time
 import requests
 
-
 url = "https://api.open-meteo.com/v1/forecast"
 
 CIDADES = {
@@ -42,15 +41,20 @@ def buscar_clima(cidade, latitude, longitude):
     return {
         "cidade": cidade,
         "temperatura": clima["temperature"],
-        "vento": clima["windspeed"] 
+        "vento": clima["windspeed"] ,
+        "observado_em": clima["time"]
     }
 
 def extrair_todas():
     lista_infos = []
     for nome_cidade, (lat, lon) in CIDADES.items():
-        cidade_clima = buscar_clima(nome_cidade,lat,lon)
-        lista_infos.append(cidade_clima)
-        
-    return lista_infos
-    
+        try:
+            cidade_clima = buscar_clima(nome_cidade,lat,lon)
+            lista_infos.append(cidade_clima)
+        except Exception as e:
+            print(f"Falha em {nome_cidade}: {e}")
 
+    return lista_infos
+
+
+print(buscar_clima("barreiras", 12.15, -44.99))
