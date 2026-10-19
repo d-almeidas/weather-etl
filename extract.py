@@ -1,5 +1,8 @@
 import time
 import requests
+import logging
+
+logger = logging.getLogger(__name__)
 
 url = "https://api.open-meteo.com/v1/forecast"
 
@@ -19,15 +22,15 @@ def get_with_retry(url, tentativas=3, espera=2, **kwargs):
         
         except (requests.exceptions.Timeout,
                 requests.exceptions.ConnectionError):
-            print(f"Tentativa {tentativa}: falha de conexão.")
+            logger.warning("Tentativa %s: falha de conexão.", tentativa)
 
         except requests.exceptions.HTTPError as e:
             if e.response.status_code < 500:
                 raise
-            print(f"Tentativa {tentativa}: erro do servidor ({e.response.status_code}).")
+            logger.warning("Tentativa %s: error de servidor", tentativa)
             
         if tentativa < tentativas:
-            print('Testando...')
+            logger.info("Tentando de novo em %s segundos", espera)
             time.sleep(espera)
 
     raise Exception("A API não respondeu depois de várias tentativas.")
@@ -52,7 +55,7 @@ def extrair_todas():
             cidade_clima = buscar_clima(nome_cidade,lat,lon)
             lista_infos.append(cidade_clima)
         except Exception as e:
-            print(f"Falha em {nome_cidade}: {e}")
+            logger.exception("Falha em %s", nome_cidade)
 
     return lista_infos
 
