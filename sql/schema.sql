@@ -3,5 +3,7 @@ CREATE TABLE IF NOT EXISTS clima (
     cidade TEXT NOT NULL,
     temperatura NUMERIC(5,1),
     vento NUMERIC(5,1),
-    dthora_coleta TIMESTAMP NOT NULL
-)
+    observado_em TIMESTAMP NOT NULL,
+    dthora_coleta TIMESTAMP NOT NULL,
+    CONSTRAINT uq_cidade_observado UNIQUE (cidade, observado_em)
+);
